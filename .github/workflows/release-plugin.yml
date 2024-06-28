@@ -1,0 +1,46 @@
+name: Release Plugin
+
+env:
+  PLUGIN_NAME: duplicate-post-preserve-data
+
+on:
+  workflow_dispatch:
+    branches:
+      - main
+
+jobs:
+  build-test-image:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 6
+
+    steps:
+      - name: Checkout files
+        timeout-minutes: 1
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      # Get the release number
+      - name: Get the release number
+        id: release
+        run: |
+          # Get the release from ${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.php file, e.g. * Version: 4.0.0
+          RELEASE_NUMBER=$(grep -oP 'Version: \K[0-9]+\.[0-9]+\.[0-9]+' "${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.php")
+          if [ ! "${RELEASE_NUMBER}" ]; then
+              echo "Error! Release number not found."
+              exit 1
+          fi
+
+      # Zip up the plugin into a release PLUGIN_NAME
+      - name: Zip up the plugin
+        run: |
+          if [ ! -d "${{ env.PLUGIN_NAME }}" ]; then
+              echo "Error! Plugin directory not found."
+              exit 1
+          fi
+          zip -r "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip" "${{ env.PLUGIN_NAME }}"
+
+      # Create a release
+      - name: Create a release
+        run: |
+          gh release create "${RELEASE_NUMBER}" "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip" -t "${RELEASE_NUMBER}" -n "Release ${RELEASE_NUMBER}"
