@@ -40,10 +40,11 @@ jobs:
               exit 1
           fi
           zip -r "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip" "${{ env.PLUGIN_NAME }}"
+          ls -l "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip"
 
       # Create a release
       - name: Create a release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${RELEASE_NUMBER}" "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip" -t "${RELEASE_NUMBER}" -n "Release ${RELEASE_NUMBER}"
+          gh release create "${RELEASE_NUMBER}" "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip" --title "${RELEASE_NUMBER}" --notes "Release ${RELEASE_NUMBER}"
