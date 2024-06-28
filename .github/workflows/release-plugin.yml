@@ -1,7 +1,7 @@
 name: Release Plugin
 
 env:
-  PLUGIN_NAME: duplicate-post-preserve-data
+  PLUGIN_NAME: duplicate-post-preserve-date
 
 on:
   workflow_dispatch:
