@@ -20,17 +20,18 @@ jobs:
         with:
           ref: main
 
-      # Get the release number
-      - name: Get the release number
-        id: release
+      # Get the version number
+      - name: Get the version number
+        id: get-version-number
         run: |
           # Get the release from ${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.php file, e.g. * Version: 4.0.0
-          RELEASE_NUMBER=$(grep -oP 'Version:\s+\K[0-9]+\.[0-9]+\.[0-9]+' "${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.php")
-          if [ ! "${RELEASE_NUMBER}" ]; then
+          VERSION_NUMBER=$(grep -oP 'Version:\s+\K[0-9]+\.[0-9]+\.[0-9]+' "${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.php")
+          if [ ! "${VERSION_NUMBER}" ]; then
               echo "Error! Release number not found."
               exit 1
           fi
-          echo "Release number: ${RELEASE_NUMBER}"
+          echo "Release number: ${VERSION_NUMBER}"
+           echo "VERSION_NUMBER=${VERSION_NUMBER}" >> $GITHUB_OUTPUT
 
       # Zip up the plugin into a release PLUGIN_NAME
       - name: Zip up the plugin
@@ -39,12 +40,12 @@ jobs:
               echo "Error! Plugin directory not found."
               exit 1
           fi
-          zip -r "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip" "${{ env.PLUGIN_NAME }}"
-          ls -l "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip"
+          zip -r "${{ env.PLUGIN_NAME }}_${VERSION_NUMBER}.zip" "${{ env.PLUGIN_NAME }}"
+          ls -l "${{ env.PLUGIN_NAME }}_${VERSION_NUMBER}.zip"
 
       # Create a release
       - name: Create a release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "${RELEASE_NUMBER}" "${{ env.PLUGIN_NAME }}_${RELEASE_NUMBER}.zip" --title "${RELEASE_NUMBER}" --notes "Release ${RELEASE_NUMBER}"
+          gh release create "v${{ steps.get-version-number.outputs.VERSION_NUMBER }}" "${{ env.PLUGIN_NAME }}_${{ steps.get-version-number.outputs.VERSION_NUMBER }}.zip" --title "v${{ steps.get-version-number.outputs.VERSION_NUMBER }}" --notes "Release ${VERSION_NUMBER}"
