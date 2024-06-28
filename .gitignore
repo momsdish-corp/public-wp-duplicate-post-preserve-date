@@ -1,0 +1,35 @@
+# OS generated files
+Thumbs.db
+.DS_Store
+__MACOSX
+
+# Composer generated files
+vendor
+
+# NPM generated files
+node_modules
+
+# Common VCS dirs
+.git/
+
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
+.aider*
+
+# DevSpace
+.env
+.devspace/
+
+# Python virtual environment settings
+/.venv/
+/venv/
