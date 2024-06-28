@@ -40,12 +40,12 @@ jobs:
               echo "Error! Plugin directory not found."
               exit 1
           fi
-          zip -r "${{ env.PLUGIN_NAME }}_${VERSION_NUMBER}.zip" "${{ env.PLUGIN_NAME }}"
-          ls -l "${{ env.PLUGIN_NAME }}_${VERSION_NUMBER}.zip"
+          zip -r "plugin.zip" "${{ env.PLUGIN_NAME }}"
+          ls -l "plugin.zip"
 
       # Create a release
       - name: Create a release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "v${{ steps.get-version-number.outputs.VERSION_NUMBER }}" "${{ env.PLUGIN_NAME }}_${{ steps.get-version-number.outputs.VERSION_NUMBER }}.zip" --title "v${{ steps.get-version-number.outputs.VERSION_NUMBER }}" --notes "Release ${VERSION_NUMBER}"
+          gh release create "v${{ steps.get-version-number.outputs.VERSION_NUMBER }}" "plugin.zip" --title "v${{ steps.get-version-number.outputs.VERSION_NUMBER }}" --notes "Release ${VERSION_NUMBER}"
