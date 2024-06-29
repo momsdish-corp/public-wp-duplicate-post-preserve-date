@@ -72,7 +72,7 @@ class Rewrite_Republish_Post {
 	 */
 	public function insert_original_post_date_to_meta(): void {
 		// If Post Meta doesn't have the original post date, add it.
-		if ( ! $this->get_original_post_date() && $this->get_original_post_id() ) {
+		if ( ! $this->get_original_post_date() && $this->is_rewrite_republish() && $this->get_original_post_id() ) {
 			$original_post = get_post( $this->get_original_post_id() );
 			if ( $original_post ) {
 				$this->original_post_date = $original_post->post_date;
@@ -81,7 +81,7 @@ class Rewrite_Republish_Post {
 		}
 
 		// If Post Meta doesn't have the original post date gmt, add it.
-		if ( ! $this->get_original_post_date_gmt() && $this->get_original_post_id() ) {
+		if ( ! $this->get_original_post_date_gmt() && $this->is_rewrite_republish() && $this->get_original_post_id() ) {
 			$original_post = get_post( $this->get_original_post_id() );
 			if ( $original_post ) {
 				$this->original_post_date_gmt = $original_post->post_date_gmt;
@@ -96,7 +96,7 @@ class Rewrite_Republish_Post {
 	 * @return bool
 	 */
 	public function is_rewrite_republish(): bool {
-		return false !== $this->get_original_post_id();
+		return $this->get_original_post_id() && $this->post_id !== $this->get_original_post_id();
 	}
 
 

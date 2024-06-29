@@ -9,7 +9,7 @@
  * Requires at least:   6.5
  * Text Domain:         duplicate-post-preserve-date
  * Domain Path:         /languages
- * Version:             0.2.1
+ * Version:             0.2.2
  *
  * @package             Momsdish
  */
@@ -46,7 +46,7 @@ add_action( 'save_post', function ( $post_id, $post, $update ) {
 	}
 }, 10, 3 );
 
-// On publish_post, if the post is being rewritten/republished, restore the original post date.
+// On publish_post, if the post is being rewritten/republished, restore the original post date & delete the copied post meta.
 add_action( 'publish_post', function ( $post_id, $post ) {
 
 	$Original_Post = new Momsdish\Duplicate_Post_Preserve_Date\Original_Post( $post_id );
@@ -55,6 +55,8 @@ add_action( 'publish_post', function ( $post_id, $post ) {
 	if ( $Original_Post->has_rewrite_republish() && $Original_Post->get_original_post_date() && $Original_Post->get_original_post_date_gmt() ) {
 		$original_post_date = $Original_Post->get_original_post_date();
 		$original_post_date_gmt = $Original_Post->get_original_post_date_gmt();
+		// Delete the copied post meta.
+		$Original_Post->delete_copied_post_meta();
 		// If the original post date is different from the current post date, update the post date.
 		if ( ( $original_post_date !== $post->post_date ) || ( $original_post_date_gmt !== $post->post_date_gmt ) ) {
 			remove_action( 'publish_post', __FUNCTION__ );

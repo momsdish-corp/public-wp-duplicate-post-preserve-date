@@ -68,12 +68,22 @@ class Original_Post {
 	}
 
 	/**
+	 * Delete copied post meta.
+	 * Duplicate Post plugin copies all rewrite/republish post meta back to the original post, during the republish.
+	 * This includes the temporary values we use on rewrite/republish post to track the original date.
+	 */
+	public function delete_copied_post_meta(): void {
+		delete_post_meta( $this->post_id, '_dp_original_post_date' );
+		delete_post_meta( $this->post_id, '_dp_original_post_date_gmt' );
+	}
+
+	/**
 	 * Check if this Post has a Rewrite & Republish Post.
 	 *
 	 * @return bool
 	 */
 	public function has_rewrite_republish(): bool {
-		return false !== $this->get_rewrite_republish_post_id();
+		return $this->get_rewrite_republish_post_id() && $this->post_id !== $this->get_rewrite_republish_post_id();
 	}
 
 }
