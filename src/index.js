@@ -1,5 +1,5 @@
 import { registerPlugin } from '@wordpress/plugins';
-import { PluginPostStatusInfo } from '@wordpress/edit-post';
+import { PluginPostStatusInfo, PluginPostPublishPanel } from '@wordpress/edit-post';
 import { useSelect } from '@wordpress/data';
 import { __ } from '@wordpress/i18n';
 import { dateI18n, __experimentalGetSettings } from '@wordpress/date';
@@ -25,14 +25,24 @@ const OriginalDatePreservedInfo = () => {
 	);
 
 	return (
-		<PluginPostStatusInfo>
-			<div className="notice notice-info inline">
-				<p style={{ margin: 0 }}>
-					{__('The original publish date will be preserved as', 'text-domain')} <strong>{formattedDate}</strong>.
-				</p>
-			</div>
-		</PluginPostStatusInfo>
+		<>
+			<PluginPostStatusInfo>
+				<div className="notice notice-info inline">
+					<p style={{ margin: 0 }}>
+						{__('The original publish date will be preserved as', 'text-domain')} <strong>{formattedDate}</strong>.
+					</p>
+				</div>
+			</PluginPostStatusInfo>
+			<PluginPostPublishPanel>
+				<div className="notice notice-info inline">
+					<p style={{ margin: 0 }}>
+						{__('The original publish date will be preserved as', 'text-domain')} <strong>{formattedDate}</strong>.
+					</p>
+				</div>
+			</PluginPostPublishPanel>
+		</>
 	);
 };
 
-registerPlugin('duplicate-post-preserve-date', { render: OriginalDatePreservedInfo });
+registerPlugin('duplicate-post-preserve-date',
+	{ render: OriginalDatePreservedInfo });
