@@ -1,17 +1,17 @@
 <?php
 /**
- * Plugin Name:        Yoast Duplicate Post - Preserve Date
- * Description:        Stops Yoast Duplicate Post plugin from overwriting the original publish date.
- * Plugin URI:        https://github.com/momsdish-corp/public-yoast-duplicate-preserve-date
- * Author:            Momsdish
- * Author URI:        https://github.com/momsdish-corp
+ * Plugin Name:         Yoast Duplicate Post - Preserve Date
+ * Description:         Stops Yoast Duplicate Post plugin from overwriting the original publish date.
+ * Plugin URI:          https://github.com/momsdish-corp/public-yoast-duplicate-preserve-date
+ * Author:              Momsdish
+ * Author URI:          https://github.com/momsdish-corp
  * Requires PHP:        8.1
- * Requires at least:    6.5
- * Text Domain:        duplicate-post-preserve-date
- * Domain Path:        /languages
- * Version:            0.1.0
+ * Requires at least:   6.5
+ * Text Domain:         duplicate-post-preserve-date
+ * Domain Path:         /languages
+ * Version:             0.2.0
  *
- * @package            Momsdish
+ * @package             Momsdish
  */
 
 define( 'DUPLICATE_POST_PRESERVE_DATE_DIR', __DIR__ );
