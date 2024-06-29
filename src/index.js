@@ -28,7 +28,7 @@ const OriginalDatePreservedInfo = () => {
 		<PluginPostStatusInfo>
 			<div className="notice notice-info inline">
 				<p style={{ margin: 0 }}>
-					{__('Post will republish as', 'text-domain')} <strong>{formattedDate}</strong>
+					{__('The original publish date will be preserved as', 'text-domain')} <strong>{formattedDate}</strong>.
 				</p>
 			</div>
 		</PluginPostStatusInfo>
