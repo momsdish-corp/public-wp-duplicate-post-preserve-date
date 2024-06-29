@@ -9,7 +9,7 @@
  * Requires at least:   6.5
  * Text Domain:         duplicate-post-preserve-date
  * Domain Path:         /languages
- * Version:             0.2.0
+ * Version:             0.2.1
  *
  * @package             Momsdish
  */
