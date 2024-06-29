@@ -7,8 +7,8 @@ Note: Although this plugin works at the time of writing, no guarantees of any ki
 # Installation
 
 - Download the [plugin.zip](https://github.com/momsdish-corp/public-wp-duplicate-post-preserve-date/releases/latest/download/plugin.zip) file from the latest releases.
-- Upload it to WordPress (Admin Panel -> Plugins -> Add New Plugin -> Upload Plugin) and click to Install Now.
-- Activate the plugin called `Yoast Duplicate Post - Preserve Date`.
+- Upload it to WordPress (Go to Admin Panel -> Plugins -> Add New Plugin -> Upload Plugin) and click to Install Now.
+- Activate the plugin (Or go to Plugins -> `Yoast Duplicate Post - Preserve Date` -> Activate).
 
 # Legal
 
