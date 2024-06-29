@@ -2,7 +2,7 @@
 /**
  * Plugin Name:         Yoast Duplicate Post - Preserve Date
  * Description:         Stops Yoast Duplicate Post plugin from overwriting the original publish date.
- * Plugin URI:          https://github.com/momsdish-corp/public-yoast-duplicate-preserve-date
+ * Plugin URI:          https://github.com/momsdish-corp/public-wp-duplicate-post-preserve-date
  * Author:              Momsdish
  * Author URI:          https://github.com/momsdish-corp
  * Requires PHP:        8.1
