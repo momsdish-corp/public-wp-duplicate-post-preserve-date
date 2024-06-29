@@ -20,7 +20,7 @@ const OriginalDatePreservedInfo = () => {
 
 	const dateSettings = __experimentalGetSettings();
 	const formattedDate = dateI18n(
-		'F j g:i a',
+		'F j, Y g:i a',
 		originalDate
 	);
 
