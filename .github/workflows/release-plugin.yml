@@ -45,7 +45,7 @@ jobs:
           npm install
           npm run build
           mkdir -p "${{ env.PLUGIN_NAME }}"
-          cp -r index.php "${{ env.PLUGIN_NAME }}.php" LICENSE.md README.md build "${{ env.PLUGIN_NAME }}/"
+          cp -r index.php "${{ env.PLUGIN_NAME }}.php" LICENSE.md README.md build includes "${{ env.PLUGIN_NAME }}/"
 
       # Zip up the plugin into a release PLUGIN_NAME
       - name: Zip up the plugin`
