@@ -34,7 +34,7 @@ jobs:
            echo "VERSION_NUMBER=${VERSION_NUMBER}" >> $GITHUB_OUTPUT
 
       # Install Node.js
-      - name: Build the plugin
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 21
