@@ -1,0 +1,26 @@
+{
+	"name": "duplicate-post-preserve-date",
+	"version": "0.0.1",
+	"description": "Compiles the js and css for the Duplicate Post Preserve Date plugin.",
+	"author": "Momsdish",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start"
+	},
+	"devDependencies": {
+		"@wordpress/core-data": "^7.2.0",
+		"@wordpress/data": "^10.2.0",
+		"@wordpress/date": "^5.2.0",
+		"@wordpress/edit-post": "^8.2.0",
+		"@wordpress/i18n": "^5.2.0",
+		"@wordpress/plugins": "^7.2.0",
+		"@wordpress/scripts": "^27.9.0"
+	}
+}

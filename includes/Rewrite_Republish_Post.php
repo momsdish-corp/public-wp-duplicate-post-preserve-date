@@ -10,6 +10,7 @@ class Rewrite_Republish_Post {
 
 	private false|int $original_post_id = false;
 
+	private false|string $original_post_date = false;
 	private false|string $original_post_date_gmt = false;
 
 	public function __construct( int $post_id ) {
@@ -40,6 +41,19 @@ class Rewrite_Republish_Post {
 	}
 
 	/**
+	 * Get the original post date meta.
+	 */
+	public function get_original_post_date(): false|string {
+		if ( $this->original_post_date ) {
+			return $this->original_post_date;
+		}
+
+		$this->original_post_date = get_post_meta( $this->post_id, '_dp_original_post_date', true );
+
+		return $this->original_post_date;
+	}
+
+	/**
 	 * Get the original post date gmt meta.
 	 */
 	public function get_original_post_date_gmt(): false|string {
@@ -56,17 +70,24 @@ class Rewrite_Republish_Post {
 	/**
 	 * Add the original post date to the post meta.
 	 */
-	public function insert_original_post_date_to_meta(): false|string {
+	public function insert_original_post_date_to_meta(): void {
 		// If Post Meta doesn't have the original post date, add it.
-		if ( !$this->get_original_post_date_gmt() && $this->get_original_post_id() ) {
+		if ( ! $this->get_original_post_date() && $this->get_original_post_id() ) {
+			$original_post = get_post( $this->get_original_post_id() );
+			if ( $original_post ) {
+				$this->original_post_date = $original_post->post_date;
+				add_post_meta( $this->post_id, '_dp_original_post_date', $original_post->post_date );
+			}
+		}
+
+		// If Post Meta doesn't have the original post date gmt, add it.
+		if ( ! $this->get_original_post_date_gmt() && $this->get_original_post_id() ) {
 			$original_post = get_post( $this->get_original_post_id() );
 			if ( $original_post ) {
 				$this->original_post_date_gmt = $original_post->post_date_gmt;
 				add_post_meta( $this->post_id, '_dp_original_post_date_gmt', $original_post->post_date_gmt );
 			}
 		}
-
-		return $this->original_post_date_gmt;
 	}
 
 	/**

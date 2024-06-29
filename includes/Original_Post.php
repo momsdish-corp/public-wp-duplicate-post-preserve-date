@@ -10,10 +10,27 @@ class Original_Post {
 
 	private false|int $rewrite_republish_post_id = false;
 
+	private false|string $original_post_date = false;
 	private false|string $original_post_date_gmt = false;
 
 	public function __construct( int $post_id ) {
 		$this->post_id = $post_id;
+	}
+
+	/**
+	 * Get the original post date meta.
+	 */
+	public function get_original_post_date(): false|string {
+		if ( $this->original_post_date ) {
+			return $this->original_post_date;
+		}
+
+		// Get the meta value from the Rewrite & Republish Post if it exists.
+		if ( $this->rewrite_republish_post_id ) {
+			$this->original_post_date = get_post_meta( $this->rewrite_republish_post_id, '_dp_original_post_date', true );
+		}
+
+		return $this->original_post_date;
 	}
 
 	/**

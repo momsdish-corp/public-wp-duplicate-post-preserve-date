@@ -24,8 +24,8 @@ jobs:
       - name: Get the version number
         id: get-version-number
         run: |
-          # Get the release from ${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.php file, e.g. * Version: 4.0.0
-          VERSION_NUMBER=$(grep -oP 'Version:\s+\K[0-9]+\.[0-9]+\.[0-9]+' "${{ env.PLUGIN_NAME }}/${{ env.PLUGIN_NAME }}.php")
+          # Get the release from ${{ env.PLUGIN_NAME }}.php file, e.g. * Version: 4.0.0
+          VERSION_NUMBER=$(grep -oP 'Version:\s+\K[0-9]+\.[0-9]+\.[0-9]+' "${{ env.PLUGIN_NAME }}.php")
           if [ ! "${VERSION_NUMBER}" ]; then
               echo "Error! Release number not found."
               exit 1
@@ -33,8 +33,22 @@ jobs:
           echo "Release number: ${VERSION_NUMBER}"
            echo "VERSION_NUMBER=${VERSION_NUMBER}" >> $GITHUB_OUTPUT
 
+      # Install Node.js
+      - name: Build the plugin
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      # Build the plugin
+      - name: Build the plugin
+        run: |
+          npm install
+          npm run build
+          mkdir -p "${{ env.PLUGIN_NAME }}"
+          cp -r index.php "${{ env.PLUGIN_NAME }}.php" LICENSE README.md build "${{ env.PLUGIN_NAME }}/"
+
       # Zip up the plugin into a release PLUGIN_NAME
-      - name: Zip up the plugin
+      - name: Zip up the plugin`
         run: |
           if [ ! -d "${{ env.PLUGIN_NAME }}" ]; then
               echo "Error! Plugin directory not found."
