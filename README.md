@@ -2,7 +2,15 @@
 
 The following plugin stops Yoast Duplicate Post plugin from overwriting the original publish date.
 
-Note: Although this plugin works at the time of writing, no guarantees of any kind are made.
+![illustration-1.png](docs%2Fillustration-1.png)
+
+# Requirements
+- PHP 8.1 or higher
+- WordPress 6.5 or higher
+- Yoast Duplicate Post plugin
+
+# No Guarantees
+Although this plugin works at the time of writing, no guarantees of any kind are made.
 
 # Installation
 
