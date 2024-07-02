@@ -9,9 +9,6 @@ The following plugin stops Yoast Duplicate Post plugin from overwriting the orig
 - WordPress 6.5 or higher
 - Yoast Duplicate Post plugin
 
-# No Guarantees
-Although this plugin works at the time of writing, no guarantees of any kind are made.
-
 # Installation
 
 - Download the [plugin.zip](https://github.com/momsdish-corp/public-wp-duplicate-post-preserve-date/releases/latest/download/plugin.zip) file from the latest releases.
@@ -20,5 +17,6 @@ Although this plugin works at the time of writing, no guarantees of any kind are
 
 # Legal
 
-This is free and unencumbered software released into the public domain. For more information, please refer to
-LICENSE.md.
+This WordPress plugin is provided as-is, without any guarantees or support. We're sharing the code to help anyone else
+dealing with the same issues. The code can be used without any restrictions, both for commercial and non-commercial use.
+See [LICENSE.md](LICENSE.md) for more info.
