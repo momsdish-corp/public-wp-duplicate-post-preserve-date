@@ -86,4 +86,28 @@ class Original_Post {
 		return $this->get_rewrite_republish_post_id() && $this->post_id !== $this->get_rewrite_republish_post_id();
 	}
 
+	/**
+	 * Get the Rewrite/Republish sticky status.
+	 */
+	public function is_rewrite_republish_sticky(): bool {
+		if ( $this->rewrite_republish_post_id_sticky ) {
+			return $this->rewrite_republish_post_id_sticky;
+		}
+
+		// Get the meta value from the Rewrite & Republish Post if it exists.
+		$this->rewrite_republish_post_id_sticky = is_sticky( $this->get_rewrite_republish_post_id() );
+
+		return $this->rewrite_republish_post_id_sticky;
+	}
+
+	/**
+	 * Set the sticky status on the original post.
+	 */
+	public function copy_sticky_status(): void {
+		if ( $this->is_rewrite_republish_sticky() ) {
+			stick_post( $this->post_id );
+		} else {
+			unstick_post( $this->post_id );
+		}
+	}
 }

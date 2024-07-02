@@ -2,14 +2,14 @@
 /**
  * Plugin Name:         Yoast Duplicate Post - Preserve Date
  * Description:         Stops Yoast Duplicate Post plugin from overwriting the original publish date.
- * Plugin URI:          https://github.com/momsdish-corp/public-wp-duplicate-post-preserve-date
+ * Plugin URI:          https://github.com/momsdish-corp/public-yoast-duplicate-preserve-date
  * Author:              Momsdish
  * Author URI:          https://github.com/momsdish-corp
  * Requires PHP:        8.1
  * Requires at least:   6.5
  * Text Domain:         duplicate-post-preserve-date
  * Domain Path:         /languages
- * Version:             0.2.2
+ * Version:             0.2.3
  *
  * @package             Momsdish
  */
@@ -46,13 +46,16 @@ add_action( 'save_post', function ( $post_id, $post, $update ) {
 	}
 }, 10, 3 );
 
-// On publish_post, if the post is being rewritten/republished, restore the original post date & delete the copied post meta.
+// On publish_post, if the post is being rewritten/republished:
+// - Restore the original post date & delete the copied post meta.
+// - Copy over the Sticky status
 add_action( 'publish_post', function ( $post_id, $post ) {
 
 	$Original_Post = new Momsdish\Duplicate_Post_Preserve_Date\Original_Post( $post_id );
 	// If this post is being rewritten/republished by Duplicate Post & the rewrite/republish post has the original post
 	// date in the meta, restore the original post date.
 	if ( $Original_Post->has_rewrite_republish() && $Original_Post->get_original_post_date() && $Original_Post->get_original_post_date_gmt() ) {
+		// Restore the original post date
 		$original_post_date = $Original_Post->get_original_post_date();
 		$original_post_date_gmt = $Original_Post->get_original_post_date_gmt();
 		// Delete the copied post meta.
@@ -68,6 +71,8 @@ add_action( 'publish_post', function ( $post_id, $post ) {
 			add_action( 'publish_post', __FUNCTION__, 10, 2 );
 		}
 	}
+	// Copy over the Sticky status
+	$Original_Post->copy_sticky_status();
 }, 10, 2 );
 
 // Show _dp_original_post_date in the REST API.
