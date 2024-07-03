@@ -10,6 +10,8 @@ class Original_Post {
 
 	private false|int $rewrite_republish_post_id = false;
 
+	private bool $rewrite_republish_post_id_sticky = false;
+
 	private false|string $original_post_date = false;
 	private false|string $original_post_date_gmt = false;
 
