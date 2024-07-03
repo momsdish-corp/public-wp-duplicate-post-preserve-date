@@ -9,7 +9,7 @@
  * Requires at least:   6.5
  * Text Domain:         duplicate-post-preserve-date
  * Domain Path:         /languages
- * Version:             0.2.3
+ * Version:             0.2.4
  *
  * @package             Momsdish
  */
@@ -81,5 +81,16 @@ add_action( 'init', function () {
 		'show_in_rest' => true,
 		'single'       => true,
 		'type'         => 'string',
+		'auth_callback' => function() {
+			return current_user_can( 'edit_posts' );
+		}
+	) );
+	register_post_meta( 'post', '_dp_original_post_date_gmt', array(
+		'show_in_rest' => true,
+		'single'       => true,
+		'type'         => 'string',
+		'auth_callback' => function() {
+			return current_user_can( 'edit_posts' );
+		}
 	) );
 } );
